@@ -13,39 +13,39 @@ const BULAN_LIST = ["Januari","Februari","Mac","April","Mei","Jun","Julai","Ogos
 
 // ============ INITIAL STUDENT DATA ============
 const MURID_INITIAL = [
-  // 2G - BM
+  // 2G - BM  (nama disinkronkan dengan sistem sekolah Firebase)
   { id:"m001", nama:"AYRA ELIZA BINTI ABDUL AKHIR", no_mykid:"181011011916", kelas:"2G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m002", nama:"RIYAD ANAQI BIN RASYIDI", no_mykid:"190203014231", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m003", nama:"MOHD SHAHNAQEEF BIN MOHD NAZRI", no_mykid:"190511014321", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m004", nama:"MUHAMAD AL FATTAH BIN RIZAL", no_mykid:"190812013421", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
-  { id:"m005", nama:"MUHAMMAD AQMAL NAUFAL BIN AZLAN", no_mykid:"190303014112", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m006", nama:"MUHAMMAD RAYYAN SYAZWAN", no_mykid:"191105013211", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m007", nama:"MUHAMMAD SHAZRIQ AZRA", no_mykid:"190707014231", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
-  { id:"m008", nama:"MUHAMMAD SYAKIR ZAKWAN", no_mykid:"190909013421", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m009", nama:"NOOR AYRA AISYAH BINTI ROSLAN", no_mykid:"191212012341", kelas:"2G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m010", nama:"NUR IFFATULELZAHRAH BINTI ZULKIFLI", no_mykid:"190404013211", kelas:"2G", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
+  { id:"m002", nama:"MOHAMAD RIYAD ANAQI BIN MOHAMAD SYAZWAN", no_mykid:"190203014231", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m003", nama:"MOHD SHAHNAQEEF BIN ABDUL NUR", no_mykid:"190511014321", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m004", nama:"MUHAMAD AL FATTAH BIN RUZAINIE", no_mykid:"190812013421", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
+  { id:"m005", nama:"MUHAMMAD AQMAL NAUFAL BIN MOHD AZLEN", no_mykid:"190303014112", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m006", nama:"MUHAMMAD RAYYAN SYAZWAN BIN MOHD SYAZLY", no_mykid:"191105013211", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m007", nama:"MUHAMMAD SHAZRIQ AZRA BIN SHAHRIL HAZRIE", no_mykid:"190707014231", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
+  { id:"m008", nama:"MUHAMMAD SYAKIR ZAKWAN BIN KHAIRUL SYAFIQ", no_mykid:"190909013421", kelas:"2G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m009", nama:"NOOR AYRA AISYAH BINTI AIZANI", no_mykid:"191212012341", kelas:"2G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m010", nama:"NUR IFFATULELZAHRAH BINTI RAHIM", no_mykid:"190404013211", kelas:"2G", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
   // 3B - BM
-  { id:"m011", nama:"VENISSA MARRY NAIDU A/P RAJAN", no_mykid:"181115021231", kelas:"3B", bangsa:"I", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m012", nama:"NUR RAISYA BINTI RAHIMI", no_mykid:"181207013421", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m013", nama:"NUR ZARRA ALEYSHA BINTI ZARITH", no_mykid:"180808013211", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m014", nama:"KEISHA JANNAH BINTI KHALID", no_mykid:"180303012341", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
-  { id:"m015", nama:"MOHAMAD ADAM HAFIZ BIN ANUAR", no_mykid:"181010013421", kelas:"3B", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
-  { id:"m016", nama:"MUHAMMAD AKID IZWAN BIN AZRI", no_mykid:"180505013211", kelas:"3B", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
+  { id:"m011", nama:"VENISSA MARRY NAIDU", no_mykid:"181115021231", kelas:"3B", bangsa:"I", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m012", nama:"NUR RAISYA BINTI MUHAMAD RAIMI", no_mykid:"181207013421", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m013", nama:"NUR ZARRA ALEYSHA BINTI ABDUL FATTAH", no_mykid:"180808013211", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m014", nama:"KEISHA JANNAH BINTI ANIZAL", no_mykid:"180303012341", kelas:"3B", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
+  { id:"m015", nama:"MOHAMAD ADAM HAFIZ BIN MOHAMAD SYAMSUL HAFIZ", no_mykid:"181010013421", kelas:"3B", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
+  { id:"m016", nama:"MUHAMMAD AKID IZWAN BIN HAIRUL IZWAN", no_mykid:"180505013211", kelas:"3B", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
   // 4G - BM
-  { id:"m017", nama:"MUHAMMAD RAYYAN MIKHAIL BIN IZWAN", no_mykid:"170606013421", kelas:"4G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m018", nama:"MUZAKKIR MUSTAFA BIN MUSA", no_mykid:"170404013211", kelas:"4G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
-  { id:"m019", nama:"SHAZMIA ELLYSYA BINTI SHAHRIL", no_mykid:"170808012341", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m020", nama:"NUR ALIYA ADAWIYAH BINTI AZMAN", no_mykid:"170303013421", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m021", nama:"NUR A'FIDAA NATASHA BINTI ZAKI", no_mykid:"171212013211", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
+  { id:"m017", nama:"MUHAMMAD RAYYAN MIKHAIL BIN TAUFIK HIDAYAT", no_mykid:"170606013421", kelas:"4G", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m018", nama:"MUZAKKIR MUSTAFA BIN MUHAMMAD MUZAMMIL", no_mykid:"170404013211", kelas:"4G", bangsa:"M", jantina:"L", subjek:["BM","MT"], catatan:"" },
+  { id:"m019", nama:"SHAZMIA ELLYSYA BINTI SHAHRIL HAZRIE", no_mykid:"170808012341", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m020", nama:"NUR ALIYA ADAWIYAH", no_mykid:"170303013421", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m021", nama:"NUR A'FIDAA NATASHA BINTI FARID", no_mykid:"171212013211", kelas:"4G", bangsa:"M", jantina:"P", subjek:["BM","MT"], catatan:"" },
   { id:"m022", nama:"PALLAVEE A/P SANGKARAN", no_mykid:"170909021231", kelas:"4G", bangsa:"I", jantina:"P", subjek:["BM"], catatan:"" },
   { id:"m023", nama:"SHARANI A/P KESEVAN", no_mykid:"171111021341", kelas:"4G", bangsa:"I", jantina:"P", subjek:["BM","MT"], catatan:"" },
   // 5C - BM
-  { id:"m024", nama:"MUHAMMAD ARYAN EZWAN BIN AZRUL", no_mykid:"160707013421", kelas:"5C", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
-  { id:"m025", nama:"NUR AEERA SYAFINA BINTI RAZALI", no_mykid:"160404013211", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m026", nama:"NUR FATIHAH UMAIRAH BINTI FADZIL", no_mykid:"161010012341", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
-  { id:"m027", nama:"NOOR SAMSILA BINTI SAMSUDIN", no_mykid:"160505013421", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m024", nama:"MUHAMMAD ARYAN EZWAN BIN MOHD EFFENDI", no_mykid:"160707013421", kelas:"5C", bangsa:"M", jantina:"L", subjek:["BM"], catatan:"" },
+  { id:"m025", nama:"NUR AEERA SYAFINA BINTI ASRUL RIZAL", no_mykid:"160404013211", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m026", nama:"NUR FATIHAH UMAIRAH BINTI MOHD HAMDAN", no_mykid:"161010012341", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
+  { id:"m027", nama:"NOOR SAMSILA BINTI ABDULLAH", no_mykid:"160505013421", kelas:"5C", bangsa:"M", jantina:"P", subjek:["BM"], catatan:"" },
   // 5C - MT sahaja
-  { id:"m028", nama:"NUR RANIA DAMIA BINTI RASHDAN", no_mykid:"161203013211", kelas:"5C", bangsa:"M", jantina:"P", subjek:["MT"], catatan:"" },
+  { id:"m028", nama:"NUR RANIA DAMIA BINTI ABDUL FATTAH", no_mykid:"161203013211", kelas:"5C", bangsa:"M", jantina:"P", subjek:["MT"], catatan:"" },
 ];
 
 // ============ TEACHER TIMETABLE ============

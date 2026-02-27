@@ -58,71 +58,44 @@ function namesMatch(remedialName, schoolName) {
 
 // ============================================================
 // SYNC KEHADIRAN FROM SCHOOL SYSTEM
-// Reads absenceStatus + kehadiran nodes from kehadiran-murid-6ece0,
-// maps each date/class to remedial students, and updates app state.
-// Existing MANUAL entries are NOT overwritten.
+// Reads kehadiran node from kehadiran-murid-6ece0.
+// Each date/class entry contains absentNames[].
+// Students NOT in absentNames → H. Students IN absentNames → T.
+// Always overwrites with latest school data (H or T only, no MC).
 // ============================================================
 function syncKehadiranFromSchool(murid, setKehadiran, addToast) {
-  addToast("Sedang menyinkronkan kehadiran dari sistem sekolah...");
+  if (addToast) addToast("Sedang menyinkronkan kehadiran dari sistem sekolah...");
 
-  Promise.all([
-    kehadiranDB.ref('absenceStatus').once('value'),
-    kehadiranDB.ref('kehadiran').once('value')
-  ]).then(([absSnap, schSnap]) => {
-    const absenceData = absSnap.val() || {};  // { "2026-01-15": { "2G": { "NAMA": "tidak_bersebab" } } }
-    const schoolDays  = schSnap.val()  || {};  // { "2026-01-15": { "2G": { present, total, ... } } }
-
-    // All dates that had school activity
-    const allDates = new Set([
-      ...Object.keys(absenceData),
-      ...Object.keys(schoolDays)
-    ]);
+  kehadiranDB.ref('kehadiran').once('value').then(schSnap => {
+    const schoolDays = schSnap.val() || {};
 
     setKehadiran(current => {
       const updated = JSON.parse(JSON.stringify(current));
 
-      allDates.forEach(dateStr => {
-        // dateStr = "2026-01-15"
-        const d       = new Date(dateStr + 'T00:00:00');
-        const bulan   = BULAN_LIST[d.getMonth()];
-        const tahun   = d.getFullYear();
+      Object.keys(schoolDays).forEach(dateStr => {
+        const d        = new Date(dateStr + 'T00:00:00');
+        const bulan    = BULAN_LIST[d.getMonth()];
+        const tahun    = d.getFullYear();
         const bulanKey = `${bulan}_${tahun}`;
-        const hari    = d.getDate().toString();
-
-        const dayAbsences = absenceData[dateStr] || {};
+        const hari     = d.getDate().toString();
 
         KELAS_LIST.forEach(kelas => {
-          const classAbsences = dayAbsences[kelas] || {};
-          const absentNames   = Object.keys(classAbsences);
-          const schoolHeld    = schoolDays[dateStr]?.[kelas] !== undefined;
+          const classData = schoolDays[dateStr][kelas];
+          if (!classData) return; // no record for this class on this date
 
-          // Skip if no data for this class on this date
-          if (!schoolHeld && absentNames.length === 0) return;
-
-          // Get remedial students in this class
-          const students = murid.filter(m => m.kelas === kelas);
+          const absentNames = classData.absentNames || [];
+          const students    = murid.filter(m => m.kelas === kelas);
 
           students.forEach(m => {
             m.subjek.forEach(subjek => {
-              // Ensure nested path exists
-              if (!updated[bulanKey])                       updated[bulanKey] = {};
-              if (!updated[bulanKey][kelas])                updated[bulanKey][kelas] = {};
-              if (!updated[bulanKey][kelas][subjek])        updated[bulanKey][kelas][subjek] = {};
-              if (!updated[bulanKey][kelas][subjek][m.id])  updated[bulanKey][kelas][subjek][m.id] = {};
+              if (!updated[bulanKey])                      updated[bulanKey] = {};
+              if (!updated[bulanKey][kelas])               updated[bulanKey][kelas] = {};
+              if (!updated[bulanKey][kelas][subjek])       updated[bulanKey][kelas][subjek] = {};
+              if (!updated[bulanKey][kelas][subjek][m.id]) updated[bulanKey][kelas][subjek][m.id] = {};
 
-              // DO NOT overwrite existing manual entries
-              if (updated[bulanKey][kelas][subjek][m.id][hari]) return;
-
-              // Find if this student appears in the absence list
-              const absentKey = absentNames.find(name => namesMatch(m.nama, name));
-
-              if (absentKey) {
-                const absType = classAbsences[absentKey];
-                // bersebab (MC/surat doktor) or tidak_bersebab (T/tanpa sebab)
-                updated[bulanKey][kelas][subjek][m.id][hari] = absType === 'bersebab' ? 'MC' : 'T';
-              } else if (schoolHeld) {
-                updated[bulanKey][kelas][subjek][m.id][hari] = 'H';
-              }
+              // Student absent if their name matches any entry in absentNames
+              const isAbsent = absentNames.some(name => namesMatch(m.nama, name));
+              updated[bulanKey][kelas][subjek][m.id][hari] = isAbsent ? 'T' : 'H';
             });
           });
         });
@@ -131,9 +104,9 @@ function syncKehadiranFromSchool(murid, setKehadiran, addToast) {
       return updated;
     });
 
-    addToast("✅ Kehadiran berjaya disinkronkan dari sistem sekolah!");
+    if (addToast) addToast("✅ Kehadiran berjaya disinkronkan dari sistem sekolah!");
   }).catch(e => {
     console.error('Sync error:', e);
-    addToast("❌ Gagal sinkronkan: " + (e.message || "Ralat tidak diketahui"), "error");
+    if (addToast) addToast("❌ Gagal sinkronkan: " + (e.message || "Ralat tidak diketahui"), "error");
   });
 }

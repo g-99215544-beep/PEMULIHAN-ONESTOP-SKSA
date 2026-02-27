@@ -13,7 +13,7 @@ function Dashboard({ murid, kehadiran, analisa, settings, setPage }) {
   Object.values(kehadiran[bulanKey] || {}).forEach(kd => {
     Object.values(kd).forEach(rec => {
       Object.values(rec).forEach(v => {
-        if(v==="H"||v==="T"||v==="MC") { totalAll++; if(v==="H") totalH++; }
+        if(v==="H"||v==="T") { totalAll++; if(v==="H") totalH++; }
       });
     });
   });
