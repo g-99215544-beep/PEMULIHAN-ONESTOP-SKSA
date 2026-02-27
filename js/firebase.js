@@ -61,7 +61,8 @@ function namesMatch(remedialName, schoolName) {
 // Reads kehadiran node from kehadiran-murid-6ece0.
 // Each date/class entry contains absentNames[].
 // Students NOT in absentNames → H. Students IN absentNames → T.
-// Always overwrites with latest school data (H or T only, no MC).
+// FULL REBUILD: clears all existing kehadiran data first, then
+// repopulates ONLY from Firebase — ensures weekends/cuti = kosong.
 // ============================================================
 function syncKehadiranFromSchool(murid, setKehadiran, addToast) {
   if (addToast) addToast("Sedang menyinkronkan kehadiran dari sistem sekolah...");
@@ -69,8 +70,9 @@ function syncKehadiranFromSchool(murid, setKehadiran, addToast) {
   kehadiranDB.ref('kehadiran').once('value').then(schSnap => {
     const schoolDays = schSnap.val() || {};
 
-    setKehadiran(current => {
-      const updated = JSON.parse(JSON.stringify(current));
+    setKehadiran(() => {
+      // Start FRESH — wipe all old data so stale weekend/holiday T entries are gone
+      const fresh = {};
 
       Object.keys(schoolDays).forEach(dateStr => {
         const d        = new Date(dateStr + 'T00:00:00');
@@ -88,20 +90,20 @@ function syncKehadiranFromSchool(murid, setKehadiran, addToast) {
 
           students.forEach(m => {
             m.subjek.forEach(subjek => {
-              if (!updated[bulanKey])                      updated[bulanKey] = {};
-              if (!updated[bulanKey][kelas])               updated[bulanKey][kelas] = {};
-              if (!updated[bulanKey][kelas][subjek])       updated[bulanKey][kelas][subjek] = {};
-              if (!updated[bulanKey][kelas][subjek][m.id]) updated[bulanKey][kelas][subjek][m.id] = {};
+              if (!fresh[bulanKey])                    fresh[bulanKey] = {};
+              if (!fresh[bulanKey][kelas])             fresh[bulanKey][kelas] = {};
+              if (!fresh[bulanKey][kelas][subjek])     fresh[bulanKey][kelas][subjek] = {};
+              if (!fresh[bulanKey][kelas][subjek][m.id]) fresh[bulanKey][kelas][subjek][m.id] = {};
 
               // Student absent if their name matches any entry in absentNames
               const isAbsent = absentNames.some(name => namesMatch(m.nama, name));
-              updated[bulanKey][kelas][subjek][m.id][hari] = isAbsent ? 'T' : 'H';
+              fresh[bulanKey][kelas][subjek][m.id][hari] = isAbsent ? 'T' : 'H';
             });
           });
         });
       });
 
-      return updated;
+      return fresh;
     });
 
     if (addToast) addToast("✅ Kehadiran berjaya disinkronkan dari sistem sekolah!");
