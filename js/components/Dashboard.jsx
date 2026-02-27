@@ -1,19 +1,25 @@
 // ============ DASHBOARD ============
-function Dashboard({ murid, kehadiran, analisa, settings, setPage }) {
+function Dashboard({ murid, kehadiran, analisa, settings, setPage, isAdmin }) {
   const totalBM = murid.filter(m=>m.subjek.includes("BM")).length;
   const totalMT = murid.filter(m=>m.subjek.includes("MT")).length;
   const today = getTodayDay();
   const todaySlots = JADUAL_GURU[today] || [];
   const activeTodaySlots = todaySlots.filter(s=>s.cls!=="empty");
 
-  // Kehadiran bulan ini
-  const now = new Date();
+  // Kehadiran bulan ini — setakat hari ini sahaja
+  // Struktur: kehadiran[bulanKey][kelas][subjek][muridId][hari] = "H"/"T"
+  const now      = new Date();
+  const todayDay = now.getDate();
   const bulanKey = `${BULAN_LIST[now.getMonth()]}_${now.getFullYear()}`;
   let totalH=0, totalAll=0;
-  Object.values(kehadiran[bulanKey] || {}).forEach(kd => {
-    Object.values(kd).forEach(rec => {
-      Object.values(rec).forEach(v => {
-        if(v==="H"||v==="T") { totalAll++; if(v==="H") totalH++; }
+  Object.values(kehadiran[bulanKey] || {}).forEach(kelasDat => {   // per kelas
+    Object.values(kelasDat).forEach(subjDat => {                    // per subjek
+      Object.values(subjDat).forEach(muridRec => {                  // per murid
+        Object.entries(muridRec).forEach(([hari, v]) => {           // per hari
+          if (parseInt(hari) <= todayDay) {
+            if(v==="H"||v==="T") { totalAll++; if(v==="H") totalH++; }
+          }
+        });
       });
     });
   });
@@ -112,13 +118,13 @@ function Dashboard({ murid, kehadiran, analisa, settings, setPage }) {
         <div className="card-body">
           <div className="quick-links">
             {[
-              {id:"murid",icon:"👥",label:"Senarai Murid"},
-              {id:"kehadiran",icon:"📋",label:"Rekod Kehadiran"},
-              {id:"analisa",icon:"📊",label:"Analisa BAPM-PMK"},
-              {id:"jadual",icon:"📅",label:"Jadual Waktu"},
-              {id:"kemahiran",icon:"📚",label:"Kemahiran Pemulihan"},
-              {id:"laporan",icon:"📄",label:"Laporan & Eksport"},
-            ].map(q=>(
+              {id:"murid",    icon:"👥", label:"Senarai Murid",    admin:false},
+              {id:"kehadiran",icon:"📋", label:"Rekod Kehadiran",  admin:false},
+              {id:"analisa",  icon:"📊", label:"Analisa BAPM-PMK", admin:true},
+              {id:"jadual",   icon:"📅", label:"Jadual Waktu",     admin:true},
+              {id:"kemahiran",icon:"📚", label:"Kemahiran Pemulihan", admin:true},
+              {id:"laporan",  icon:"📄", label:"Laporan & Eksport", admin:true},
+            ].filter(q => !q.admin || isAdmin).map(q=>(
               <div key={q.id} className="quick-link" onClick={()=>setPage(q.id)}>
                 <div className="ql-icon">{q.icon}</div>
                 <div className="ql-label">{q.label}</div>

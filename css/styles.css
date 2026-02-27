@@ -294,3 +294,34 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: var(--p
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
 .info-box { background: var(--primary-light); border-left: 4px solid var(--primary); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 13px; color: var(--primary); margin-bottom: 16px; }
+
+/* ============ ADMIN ============ */
+.admin-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #1e293b;
+  color: #94a3b8;
+  border: 2px solid #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.admin-fab:hover { background: #334155; color: #e2e8f0; transform: scale(1.08); }
+
+.admin-nav-item { opacity: 0.85; }
+.admin-nav-item:hover, .admin-nav-item.active { opacity: 1; }
+.admin-nav-item.active { background: rgba(251,191,36,0.18) !important; }
+
+.admin-logout-item { opacity: 0.6; font-size: 12px; }
+.admin-logout-item:hover { opacity: 1; background: rgba(239,68,68,0.15) !important; color: #fca5a5 !important; }
+
+.input-error { border-color: var(--danger) !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.15); }
